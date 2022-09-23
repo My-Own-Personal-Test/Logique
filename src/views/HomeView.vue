@@ -1,6 +1,12 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const input = ref("");
+
+const search = async () => {
+  router.push(`/results/${input.value}`);
+};
 </script>
 
 <template>
@@ -13,6 +19,7 @@ const input = ref("");
       style="height: 40px; outline: none"
     />
     <button
+      @click="search"
       class="mt-[15px] w-[280px] rounded-full text-white"
       style="background-color: rgba(255, 255, 255, 0.2); height: 40px"
     >
@@ -21,9 +28,10 @@ const input = ref("");
   </div>
 </template>
 
-<style>
+<style scoped>
 .container {
   background-image: url("../assets/vector/logo.svg");
+  background: linear-gradient(153deg, #712bda, #a45deb 100%);
   min-height: 100vh;
   background-repeat: no-repeat;
   background-position: center;

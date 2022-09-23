@@ -3,12 +3,7 @@ import { RouterView } from "vue-router";
 </script>
 
 <template>
-  <div
-    style="
-      min-height: 100vh;
-      background-image: linear-gradient(153deg, #712bda, #a45deb 100%);
-    "
-  >
+  <div style="min-height: 100vh">
     <RouterView />
   </div>
 </template>
