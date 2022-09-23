@@ -7,7 +7,7 @@ const useSearch = () => {
   const searchItunes = async (input) => {
     const space = input.artistName.replace(/ /g, "+");
     const response = await API.get(
-      `search?term=${input.term}&limit=200&country=ID&artistName=${space}`
+      `search?term=${input.term}&limit=200&country=US&artistName=${space}`
     );
     searchResults.value = response.data.results;
   };

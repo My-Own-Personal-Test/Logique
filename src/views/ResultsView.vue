@@ -85,14 +85,17 @@ const more = () => {
           <p class="text-xs">{{ item.artistName }}</p>
           <p class="text-sm font-semibold mt-1">{{ item.trackName }}</p>
         </div>
-        <div class="flex justify-between">
+        <div class="flex justify-between items-center">
           <p
             style="background: #10b981"
             class="text-xs align-text-bottom pl-2 pr-2 pt-1 pb-1 rounded-xl text-white"
           >
             {{ item.primaryGenreName }}
           </p>
-          <p class="text-xs">Rp. {{ item.collectionPrice }}</p>
+          <p class="text-xs font-semibold" style="color: #f5b014">
+            $
+            {{ item.collectionPrice }}
+          </p>
         </div>
       </div>
     </div>
