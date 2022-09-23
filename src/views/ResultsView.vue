@@ -19,7 +19,15 @@ const search = async () => {
 };
 search();
 const more = () => {
-  result.value.push(...searchResults.value.slice(5, 9));
+  let arr = result.value;
+  let arr2 = searchResults.value;
+  let union = [];
+  for (let i = 0; i < arr2.length; i++) {
+    if (!arr.includes(arr2[i])) {
+      union.push(arr2[i]);
+    }
+  }
+  result.value.push(...union.slice(0, 4));
 };
 
 const otherSearch = async () => {
@@ -38,7 +46,7 @@ const otherSearch = async () => {
 
 <template>
   <div
-    class="container relative"
+    class="container relative pb-8"
     style="height: 100vh; background-color: aliceblue"
   >
     <div class="bar flex justify-between items-center">
