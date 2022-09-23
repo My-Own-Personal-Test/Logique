@@ -10,7 +10,9 @@ const search = async () => {
 </script>
 
 <template>
-  <div class="absolute h-screen flex items-center justify-center w-screen">
+  <div
+    class="absolute h-screen flex items-center justify-center w-screen pointer-events-none"
+  >
     <img src="../assets/vector/logo.svg" alt="" />
   </div>
   <div class="container flex items-center justify-end flex-col pb-[26px]">
