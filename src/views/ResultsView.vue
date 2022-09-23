@@ -1,9 +1,12 @@
 <script setup>
 import searchFunction from "../composables/search";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { ref } from "vue";
 const route = useRoute();
+const router = useRouter();
 const result = ref([]);
+const input = ref("");
+const popup = ref(false);
 const { searchResults, searchItunes } = searchFunction();
 const search = async () => {
   await searchItunes({
@@ -18,10 +21,26 @@ search();
 const more = () => {
   result.value.push(...searchResults.value.slice(5, 9));
 };
+
+const otherSearch = async () => {
+  result.value = [];
+  await searchItunes({
+    term: input.value,
+    artistName: input.value,
+  });
+  if (searchResults.value.length > 0) {
+    result.value.push(...searchResults.value.slice(0, 4));
+    popup.value = false;
+    router.push("/results/" + input.value);
+  }
+};
 </script>
 
 <template>
-  <div class="container" style="height: 100vh; background-color: aliceblue">
+  <div
+    class="container relative"
+    style="height: 100vh; background-color: aliceblue"
+  >
     <div class="bar flex justify-between items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -39,18 +58,20 @@ const more = () => {
 
       <p class="text-white">ngmusic</p>
 
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="#ffffff"
-        class="bi bi-search"
-        viewBox="0 0 16 16"
-      >
-        <path
-          d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-        />
-      </svg>
+      <div @click="popup = true">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="#ffffff"
+          class="bi bi-search"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+          />
+        </svg>
+      </div>
     </div>
 
     <div class="mt-[39px] mb-[39px]">
@@ -114,6 +135,32 @@ const more = () => {
         Load More
       </button>
     </div>
+
+    <div
+      class="popup absolute inset-0 -z-10"
+      :class="{
+        'flex flex-col justify-center items-center z-10 popupShow':
+          popup === true,
+      }"
+    >
+      <input
+        type="text"
+        class="w-[280px] rounded-full text-center"
+        placeholder="Artist / Album / Title"
+        v-model="input"
+        style="height: 40px; outline: none"
+      />
+      <button
+        @click="otherSearch"
+        class="mt-[15px] w-[280px] rounded-full text-white"
+        style="
+          background-image: linear-gradient(98deg, #712bda, #a45deb);
+          height: 40px;
+        "
+      >
+        Search
+      </button>
+    </div>
   </div>
 </template>
 
@@ -125,5 +172,10 @@ const more = () => {
   background-image: linear-gradient(100deg, #712bda, #a45deb 100%);
   border-bottom-right-radius: 40%;
   border-bottom-left-radius: 40%;
+}
+.popupShow {
+  background: #00000093;
+  backdrop-filter: blur(50%);
+  height: 100vh;
 }
 </style>
