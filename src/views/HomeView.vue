@@ -10,6 +10,9 @@ const search = async () => {
 </script>
 
 <template>
+  <div class="absolute h-screen flex items-center justify-center w-screen">
+    <img src="../assets/vector/logo.svg" alt="" />
+  </div>
   <div class="container flex items-center justify-end flex-col pb-[26px]">
     <input
       type="text"
@@ -30,7 +33,6 @@ const search = async () => {
 
 <style scoped>
 .container {
-  background-image: url("../assets/vector/logo.svg");
   background: linear-gradient(153deg, #712bda, #a45deb 100%);
   min-height: 100vh;
   background-repeat: no-repeat;
